@@ -1,6 +1,7 @@
 import React from 'react';
 import { fetchCourses } from '../service/course';
 import { useQuery } from '@tanstack/react-query';
+import Loader from '../components/Loader';
 
 const Courses: React.FC = () => {
   const { data, isLoading, isError, isSuccess } = useQuery({
@@ -13,7 +14,12 @@ const Courses: React.FC = () => {
   console.log('isSuccess:', isSuccess);
   console.log('isLoading:', isLoading);
 
-  return <h1>Welcome to the Courses Page</h1>;
+  return (
+    <>
+      <h1>Welcome to the Courses Page</h1>
+      <Loader />
+    </>
+  );
 };
 
 export default Courses;
