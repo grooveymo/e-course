@@ -13,19 +13,19 @@ const App: React.FC = () => {
   const queryClient = new QueryClient();
 
   return (
-    <Router>
-      <Routes>
-        {/** Provide the client to your App  */}
-        <QueryClientProvider client={queryClient}>
+    /** Wrap everything with <QueryClientProvider/> */
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
             <Route path="courses" element={<Courses />} />
           </Route>
-        </QueryClientProvider>
-      </Routes>
-    </Router>
+        </Routes>
+      </Router>
+    </QueryClientProvider>
   );
 };
 

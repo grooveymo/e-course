@@ -1,18 +1,13 @@
-import React, { useEffect } from 'react';
-
-const fetchCourses = async () => {
-  const response = await fetch('http://localhost:3000/courses');
-  const data = await response.json();
-  return data;
-};
+import React from 'react';
+import { fetchCourses } from '../service/course';
+import { useQuery } from '@tanstack/react-query';
 
 const Courses: React.FC = () => {
-  let data;
-  useEffect(() => {
-    data = fetchCourses().then((data) => console.log(data));
-  }, []);
+  
+  const query = useQuery({ queryKey: ['courses'], queryFn: fetchCourses });
 
-  console.log('data:', data);
+  console.log('data:', query);
+
   return <h1>Welcome to the Courses Page</h1>;
 };
 
