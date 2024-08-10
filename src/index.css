@@ -24,8 +24,6 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -65,4 +63,20 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/** ************************************************/
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* This ensures the layout takes at least the full viewport height */
+  width: 100%;
+}
+
+.content {
+  flex: 1; /* This allows the content to grow and fill available space */
+  width: 100%;
+  max-width: 100%;
+  padding: 20px; /* Add some padding for better readability */
+  box-sizing: border-box; /* Ensures padding is included in the width */
 }
