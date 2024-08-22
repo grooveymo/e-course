@@ -3,6 +3,7 @@ import { fetchCourses } from '../services/courses';
 import { useQuery } from '@tanstack/react-query';
 import Loader from '../components/Loader';
 import ErrorMessage from '../components/ErrorMessage';
+import CourseCard from '../components/CourseCard';
 
 const Courses: React.FC = () => {
   const { data, isLoading, isError, error, isSuccess } = useQuery({
@@ -22,6 +23,8 @@ const Courses: React.FC = () => {
       {isLoading && <Loader />}
 
       {isError && <ErrorMessage message={error?.message || 'Error'} />}
+
+      <CourseCard />
     </>
   );
 };

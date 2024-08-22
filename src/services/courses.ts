@@ -1,5 +1,5 @@
 export const fetchCourses = async () => {
-  const response = await fetch('http://localhost:3000/coursesXXX', {
+  const response = await fetch('http://localhost:3000/courses', {
     headers: {
       Accept: 'application/json',
     },
