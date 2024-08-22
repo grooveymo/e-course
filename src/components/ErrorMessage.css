@@ -1,0 +1,27 @@
+.error-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid #ff0000;
+  border-radius: 16px;
+  padding: 32px;
+  width: 400px;
+}
+
+.error-heading {
+  color: #ff0000;
+  font-size: 24px;
+  display: 'block';
+}
+
+.error-message {
+  color: #ff0000;
+  font-size: 16px;
+}
