@@ -1,25 +1,38 @@
 import React from 'react';
 import './CourseCard.css';
 
-// export interface CourseCardProps {}
+export interface CourseCardProps {
+  id: string;
+  name: string;
+  duration: number;
+  totalModules: number;
+  totalModulesCompleted: number;
+}
 
-const CourseCard = () => {
+const CourseCard = ({
+  id,
+  name,
+  duration,
+  totalModules,
+  totalModulesCompleted,
+}: CourseCardProps) => {
   return (
-    <div className="course-card">
+    <div className="course-card" key={id}>
       <div className="course-stats">
-        <h3 className="course-title">Introduction to React</h3>
+        <h3 className="course-title">{name}</h3>
         <div className="stat">
           <span className="stat-icon">⏱</span>
-          24 hrs
+          {duration} hours
         </div>
       </div>
       <div className="course-stats">
         <div className="stat completed">
-          <span className="stat-icon">✓</span>8 Completed
+          <span className="stat-icon">✓</span>
+          {totalModulesCompleted} Completed
         </div>
         <div className="stat">
           <span className="stat-icon">📚</span>
-          12 Modules
+          {totalModules} Modules
         </div>
       </div>
       <button className="continue-button">Continue Learning</button>
