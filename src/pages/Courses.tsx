@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import Loader from '../components/Loader';
 import ErrorMessage from '../components/ErrorMessage';
 import CourseCard, { CourseCardProps } from '../components/CourseCard';
+import './Courses.css';
 
 const Courses: React.FC = () => {
   const { data, isLoading, isError, error, isSuccess } = useQuery({
@@ -23,7 +24,22 @@ const Courses: React.FC = () => {
       {isLoading && <Loader />}
       {isError && <ErrorMessage message={error?.message || 'Error'} />}
 
-      {isSuccess &&
+      {isSuccess && (
+        <div className="course-card-layout">
+          {data.map((course: CourseCardProps) => (
+            <CourseCard
+              key={course.id}
+              id={course.id}
+              name={course.name}
+              duration={course.duration}
+              totalModules={course.totalModules}
+              totalModulesCompleted={course.totalModulesCompleted}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* {isSuccess &&
         data.map((course: CourseCardProps) => (
           <CourseCard
             key={course.id}
@@ -33,7 +49,7 @@ const Courses: React.FC = () => {
             totalModules={course.totalModules}
             totalModulesCompleted={course.totalModulesCompleted}
           />
-        ))}
+        ))} */}
     </>
   );
 };
