@@ -22,10 +22,17 @@ const CreateCourse = () => {
     dispatch({ type: 'SET_DURATION', payload: parseFloat(event.target.value) });
   };
 
+  const handleReset = () => {
+    dispatch({ type: 'RESET' });
+  };
+
   return (
     <>
       <h1>Add a course</h1>
-      <Form onSubmit={() => console.log('submitted', state)}>
+      <Form
+        onSubmit={() => console.log('submitted', state)}
+        onReset={handleReset}
+      >
         <Input
           label="Course Name"
           name="name"
@@ -52,6 +59,9 @@ const CreateCourse = () => {
         />
         <Button type="submit" variant={'primary'}>
           Submit
+        </Button>
+        <Button type="reset" variant={'secondary'}>
+          Reset
         </Button>
       </Form>
     </>
