@@ -1,0 +1,39 @@
+.input-wrapper {
+  display: 'flex';
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  background-color: #cdcdcd;
+  color: #333333;
+  border-radius: 4px;
+}
+
+.input-field.input-error {
+  border-color: #ff0000;
+}
+
+.input-helper-text {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.input-error-text {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: #ff0000;
+}

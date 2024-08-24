@@ -1,0 +1,13 @@
+.form-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0 auto;
+  background-color: #f0f0f0;
+  color: #333333;
+  border: 1px solid #000000;
+  border-radius: 16px;
+  padding: 32px;
+  width: 400px;
+}
