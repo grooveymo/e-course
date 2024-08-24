@@ -5,6 +5,8 @@
   font-weight: bold;
   text-align: center;
   background-color: transparent;
+  border: 1px solid transparent;
+  font-size: 16px;
 }
 
 .link-primary {

@@ -48,8 +48,6 @@ const CourseCard = ({
       <div className="button-container">
         <LinkButton variant="primary">Edit</LinkButton>
         <LinkButton variant="secondary">Delete</LinkButton>
-        {/* <Button variant="primary">Edit</Button>
-        <Button variant="secondary">Delete</Button> */}
       </div>
     </div>
   );
