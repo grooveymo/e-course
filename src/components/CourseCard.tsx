@@ -1,5 +1,7 @@
-import React from 'react';
+import { ClockIcon, CheckCircledIcon, LayersIcon } from '@radix-ui/react-icons';
 import './CourseCard.css';
+import Button from './Button';
+import LinkButton from './LinkButton';
 
 export interface CourseCardProps {
   id: string;
@@ -21,21 +23,34 @@ const CourseCard = ({
       <div className="course-stats">
         <h3 className="course-title">{name}</h3>
         <div className="stat">
-          <span className="stat-icon">⏱</span>
-          {duration} hours
+          <span className="stat-icon">
+            <ClockIcon />
+          </span>
+          {duration} hrs
         </div>
       </div>
       <div className="course-stats">
         <div className="stat completed">
-          <span className="stat-icon">✓</span>
+          {totalModulesCompleted > 0 && (
+            <span className="stat-icon">
+              <CheckCircledIcon />
+            </span>
+          )}
           {totalModulesCompleted} Completed
         </div>
         <div className="stat">
-          <span className="stat-icon">📚</span>
+          <span className="stat-icon">
+            <LayersIcon />
+          </span>
           {totalModules} Modules
         </div>
       </div>
-      <button className="continue-button">Continue Learning</button>
+      <div className="button-container">
+        <LinkButton variant="primary">Edit</LinkButton>
+        <LinkButton variant="secondary">Delete</LinkButton>
+        {/* <Button variant="primary">Edit</Button>
+        <Button variant="secondary">Delete</Button> */}
+      </div>
     </div>
   );
 };

@@ -14,29 +14,36 @@
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 32px;
   max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .course-title {
   font-size: 20px;
   font-weight: 600;
   line-height: 28px;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
   color: black;
+  margin: 0;
+  width: 75%;
 }
 
 .course-stats {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  flex: 1;
+  /* margin-bottom: 20px; */
 }
 
 .stat {
-  display: flex;
-  align-items: center;
+  /* display: flex;
+  align-items: center; */
   color: #666;
   font-size: 14px;
+  line-height: 28px;
 }
 
 .stat-icon {
@@ -47,18 +54,9 @@
   color: #4caf50;
 }
 
-.continue-button {
-  background-color: #f0f0f0;
-  border: none;
-  border-radius: 4px;
-  color: #333;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 10px 0;
-  width: 100%;
-  text-align: center;
-}
-
-.continue-button:hover {
-  background-color: #e0e0e0;
+.button-container {
+  /* margin-top: 32px; */
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
 }

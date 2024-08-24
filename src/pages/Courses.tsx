@@ -1,9 +1,11 @@
 import React from 'react';
+
 import { fetchCourses } from '../services/courses';
 import { useQuery } from '@tanstack/react-query';
 import Loader from '../components/Loader';
 import ErrorMessage from '../components/ErrorMessage';
 import CourseCard, { CourseCardProps } from '../components/CourseCard';
+
 import './Courses.css';
 
 const Courses: React.FC = () => {
