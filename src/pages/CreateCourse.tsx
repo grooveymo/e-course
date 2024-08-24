@@ -9,6 +9,10 @@ import { Course } from '../types/course';
 import { useNavigate } from 'react-router-dom';
 
 const CreateCourse = () => {
+
+  //----------------------------------------------------
+  // Employ the useReducer hook to manage the form state
+  //----------------------------------------------------
   const [state, dispatch] = useReducer(addCourseReducer, initialCreateState);
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,32 +30,26 @@ const CreateCourse = () => {
     dispatch({ type: 'SET_DURATION', payload: parseFloat(event.target.value) });
   };
 
-  //----------------------------------------------
+  //------------------------------------------------------
+  // Employ React Query's mutation hook to create a course
+  //------------------------------------------------------
 
+  const queryClient = useQueryClient();
+  
   // React Query mutation hook
-  const useCreateCourseMutation = () => {
-    const queryClient = useQueryClient();
-
-    return useMutation({
-      mutationFn: createCourse,
-      onSuccess: (newCourse) => {
-        // Invalidate and refetch
-        queryClient.invalidateQueries({ queryKey: ['courses'] });
-
-        // Optionally, update the cache directly
-        queryClient.setQueryData<Course[]>(['courses'], (oldCourses) => {
-          return oldCourses ? [...oldCourses, newCourse] : [newCourse];
-        });
-      },
-    });
-  };
-  const createCourseMutation = useCreateCourseMutation();
+  const createCourseMutation = useMutation({
+    mutationFn: createCourse,
+  });
 
   const navigate = useNavigate();
   const handleSubmit = () => {
     createCourseMutation.mutate(state, {
       onSuccess: (data) => {
         console.log('Course created:', data);
+
+        // Invalidate and refetch
+        queryClient.invalidateQueries({ queryKey: ['courses'] });
+
         // Handle success (e.g., show a success message, reset form)
         navigate('/courses');
       },
