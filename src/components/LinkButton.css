@@ -5,7 +5,6 @@
   font-weight: bold;
   text-align: center;
   background-color: transparent;
-  /* transition: background-color 0.3s ease; */
 }
 
 .link-primary {
@@ -17,9 +16,9 @@
 }
 
 .link-primary:hover {
-  background-color: #0056b3;
+  color: #0056b3;
 }
 
 .link-secondary:hover {
-  background-color: #cc0000;
+  color: #cc0000;
 }
