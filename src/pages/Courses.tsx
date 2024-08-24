@@ -1,10 +1,13 @@
 import React from 'react';
 
+import { PlusCircledIcon } from '@radix-ui/react-icons';
+
 import { fetchCourses } from '../services/courses';
 import { useQuery } from '@tanstack/react-query';
 import Loader from '../components/Loader';
 import ErrorMessage from '../components/ErrorMessage';
 import CourseCard, { CourseCardProps } from '../components/CourseCard';
+import LinkButton from '../components/LinkButton';
 
 import './Courses.css';
 
@@ -27,18 +30,26 @@ const Courses: React.FC = () => {
       {isError && <ErrorMessage message={error?.message || 'Error'} />}
 
       {isSuccess && (
-        <div className="course-card-layout">
-          {data.map((course: CourseCardProps) => (
-            <CourseCard
-              key={course.id}
-              id={course.id}
-              name={course.name}
-              duration={course.duration}
-              totalModules={course.totalModules}
-              totalModulesCompleted={course.totalModulesCompleted}
-            />
-          ))}
-        </div>
+        <>
+          <div className="create-course">
+            <div>
+              <PlusCircledIcon className="add-icon" />
+              <LinkButton variant={'primary'}>Add course</LinkButton>
+            </div>
+          </div>
+          <div className="course-card-layout">
+            {data.map((course: CourseCardProps) => (
+              <CourseCard
+                key={course.id}
+                id={course.id}
+                name={course.name}
+                duration={course.duration}
+                totalModules={course.totalModules}
+                totalModulesCompleted={course.totalModulesCompleted}
+              />
+            ))}
+          </div>
+        </>
       )}
     </>
   );

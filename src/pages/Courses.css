@@ -5,3 +5,16 @@
   justify-content: center;
   margin: 1rem;
 }
+
+.create-course {
+  display: flex;
+  justify-content: flex-end;
+  margin: 16px;
+}
+
+.add-icon {
+  color: #007bff;
+}
+.add-icon:hover {
+  color: #0056b3;
+}
