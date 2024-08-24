@@ -25,7 +25,6 @@
   font-size: 20px;
   font-weight: 600;
   line-height: 28px;
-  /* margin-bottom: 15px; */
   color: black;
   margin: 0;
   width: 75%;
@@ -35,12 +34,9 @@
   display: flex;
   justify-content: space-between;
   flex: 1;
-  /* margin-bottom: 20px; */
 }
 
 .stat {
-  /* display: flex;
-  align-items: center; */
   color: #666;
   font-size: 14px;
   line-height: 28px;
@@ -55,7 +51,6 @@
 }
 
 .button-container {
-  /* margin-top: 32px; */
   display: flex;
   justify-content: flex-end;
   gap: 8px;
