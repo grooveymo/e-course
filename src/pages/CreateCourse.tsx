@@ -3,6 +3,9 @@ import Form from '../components/Form';
 import Button from '../components/Button';
 import { useReducer } from 'react';
 import { addCourseReducer, initialCreateState } from '../hooks/addCreateCourse';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { createCourse } from '../services/courses';
+import { Course } from '../types/course';
 
 const CreateCourse = () => {
   const [state, dispatch] = useReducer(addCourseReducer, initialCreateState);
@@ -22,10 +25,43 @@ const CreateCourse = () => {
     dispatch({ type: 'SET_DURATION', payload: parseFloat(event.target.value) });
   };
 
+  //----------------------------------------------
+  // React Query mutation hook
+  const useCreateCourseMutation = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+      mutationFn: createCourse,
+      onSuccess: (newCourse) => {
+        // Invalidate and refetch
+        queryClient.invalidateQueries({ queryKey: ['courses'] });
+
+        // Optionally, update the cache directly
+        queryClient.setQueryData<Course[]>(['courses'], (oldCourses) => {
+          return oldCourses ? [...oldCourses, newCourse] : [newCourse];
+        });
+      },
+    });
+  };
+  const createCourseMutation = useCreateCourseMutation();
+
+  const handleSubmit = () => {
+    createCourseMutation.mutate(state, {
+      onSuccess: (data) => {
+        console.log('Course created:', data);
+        // Handle success (e.g., show a success message, reset form)
+      },
+      onError: (error) => {
+        console.error('Error creating course:', error);
+        // Handle error (e.g., show error message)
+      },
+    });
+  };
+  //----------------------------------------------
   return (
     <>
       <h1>Add a course</h1>
-      <Form onSubmit={() => console.log('submitted', state)}>
+      <Form onSubmit={() => handleSubmit()}>
         <Input
           label="Course Name"
           name="name"
