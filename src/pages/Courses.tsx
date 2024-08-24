@@ -40,22 +40,8 @@ const Courses: React.FC = () => {
           ))}
         </div>
       )}
-
-      {/* {isSuccess &&
-        data.map((course: CourseCardProps) => (
-          <CourseCard
-            key={course.id}
-            id={course.id}
-            name={course.name}
-            duration={course.duration}
-            totalModules={course.totalModules}
-            totalModulesCompleted={course.totalModulesCompleted}
-          />
-        ))} */}
     </>
   );
 };
 
 export default Courses;
-
-// {isError && <div>Error....</div>}
