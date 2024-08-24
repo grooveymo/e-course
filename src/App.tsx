@@ -7,6 +7,7 @@ import Contact from './pages/Contact';
 import Courses from './pages/Courses';
 // Import the QueryClient and QueryClientProvider from react-query
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import CreateCourse from './pages/CreateCourse';
 
 const App: React.FC = () => {
   // Create a client
@@ -22,6 +23,7 @@ const App: React.FC = () => {
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
             <Route path="courses" element={<Courses />} />
+            <Route path="add-course" element={<CreateCourse />} />
           </Route>
         </Routes>
       </Router>

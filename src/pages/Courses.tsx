@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import { PlusCircledIcon } from '@radix-ui/react-icons';
 
 import { fetchCourses } from '../services/courses';
@@ -23,6 +23,10 @@ const Courses: React.FC = () => {
   console.log('isSuccess:', isSuccess);
   console.log('isLoading:', isLoading);
 
+  const navigate = useNavigate();
+  const handleNavigation = () => {
+    navigate('/add-course');
+  };
   return (
     <>
       <h1>Welcome to the Courses Page</h1>
@@ -34,7 +38,9 @@ const Courses: React.FC = () => {
           <div className="create-course">
             <div>
               <PlusCircledIcon className="add-icon" />
-              <LinkButton variant={'primary'}>Add course</LinkButton>
+              <LinkButton variant={'primary'} onClick={handleNavigation}>
+                Add course
+              </LinkButton>
             </div>
           </div>
           <div className="course-card-layout">
