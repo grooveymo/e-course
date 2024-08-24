@@ -1,7 +1,7 @@
 import { ClockIcon, CheckCircledIcon, LayersIcon } from '@radix-ui/react-icons';
-import './CourseCard.css';
-import Button from './Button';
 import LinkButton from './LinkButton';
+
+import './CourseCard.css';
 
 export interface CourseCardProps {
   id: string;
