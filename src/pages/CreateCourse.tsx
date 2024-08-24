@@ -6,6 +6,7 @@ import { addCourseReducer, initialCreateState } from '../hooks/addCreateCourse';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createCourse } from '../services/courses';
 import { Course } from '../types/course';
+import { useNavigate } from 'react-router-dom';
 
 const CreateCourse = () => {
   const [state, dispatch] = useReducer(addCourseReducer, initialCreateState);
@@ -26,6 +27,7 @@ const CreateCourse = () => {
   };
 
   //----------------------------------------------
+
   // React Query mutation hook
   const useCreateCourseMutation = () => {
     const queryClient = useQueryClient();
@@ -45,11 +47,13 @@ const CreateCourse = () => {
   };
   const createCourseMutation = useCreateCourseMutation();
 
+  const navigate = useNavigate();
   const handleSubmit = () => {
     createCourseMutation.mutate(state, {
       onSuccess: (data) => {
         console.log('Course created:', data);
         // Handle success (e.g., show a success message, reset form)
+        navigate('/courses');
       },
       onError: (error) => {
         console.error('Error creating course:', error);

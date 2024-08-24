@@ -24,7 +24,7 @@ export const createCourse = async (courseData: Course): Promise<Course> => {
     body: JSON.stringify(courseData),
   });
 
-  if (response.status !== 200) {
+  if (response.status !== 201) {
     throw new Error(response.statusText);
   }
 
