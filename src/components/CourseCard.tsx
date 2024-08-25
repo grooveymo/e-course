@@ -1,5 +1,6 @@
 import { ClockIcon, CheckCircledIcon, LayersIcon } from '@radix-ui/react-icons';
 import LinkButton from './LinkButton';
+import { useNavigate } from 'react-router-dom';
 
 import './CourseCard.css';
 
@@ -18,6 +19,8 @@ const CourseCard = ({
   totalModules,
   totalModulesCompleted,
 }: CourseCardProps) => {
+  const navigate = useNavigate();
+
   return (
     <div className="course-card" key={id}>
       <div className="course-stats">
@@ -46,7 +49,12 @@ const CourseCard = ({
         </div>
       </div>
       <div className="button-container">
-        <LinkButton variant="primary">Edit</LinkButton>
+        <LinkButton
+          variant="primary"
+          onClick={() => navigate(`/edit-course/${id}`)}
+        >
+          Edit
+        </LinkButton>
         <LinkButton variant="secondary">Delete</LinkButton>
       </div>
     </div>

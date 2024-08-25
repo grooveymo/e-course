@@ -5,7 +5,8 @@ type CourseAction =
   | { type: 'SET_NAME'; payload: string }
   | { type: 'SET_TOTAL_MODULES'; payload: number }
   | { type: 'SET_DURATION'; payload: number }
-  | { type: 'RESET' };
+  | { type: 'RESET'; payload?: Course }
+  | { type: 'SET_TOTAL_MODULES_COMPLETED'; payload: number };
 
 // Initial state
 export const initialCreateState: Course = {
@@ -25,6 +26,8 @@ export const courseReducer = (state: Course, action: CourseAction): Course => {
       return { ...state, duration: action.payload };
     case 'RESET':
       return initialCreateState;
+    case 'SET_TOTAL_MODULES_COMPLETED':
+      return { ...state, totalModules: action.payload };
     default:
       return state;
   }

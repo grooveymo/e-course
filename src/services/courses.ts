@@ -1,5 +1,4 @@
 import { Course } from '../types/course';
-import { QueryFunctionContext } from '@tanstack/react-query';
 
 export const fetchCourses = async () => {
   const response = await fetch('http://localhost:3000/courses', {
@@ -33,7 +32,6 @@ export const createCourse = async (courseData: Course): Promise<Course> => {
 };
 
 export const fetchCourse = async (id: string): Promise<Course> => {
-
   if (!id) {
     throw new Error('Course ID is required');
   }
