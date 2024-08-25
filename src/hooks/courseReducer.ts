@@ -15,10 +15,7 @@ export const initialCreateState: Course = {
 };
 
 // Reducer function
-export const addCourseReducer = (
-  state: Course,
-  action: CourseAction
-): Course => {
+export const courseReducer = (state: Course, action: CourseAction): Course => {
   switch (action.type) {
     case 'SET_NAME':
       return { ...state, name: action.payload };
