@@ -3,6 +3,8 @@ import LinkButton from './LinkButton';
 import { useNavigate } from 'react-router-dom';
 
 import './CourseCard.css';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteCourse } from '../services/courses';
 
 export interface CourseCardProps {
   id: string;
@@ -20,6 +22,31 @@ const CourseCard = ({
   totalModulesCompleted,
 }: CourseCardProps) => {
   const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
+
+  // React Query mutation hook
+  const deleteCourseMutation = useMutation({
+    mutationFn: deleteCourse,
+  });
+
+  const handleDelete = () => {
+    deleteCourseMutation.mutate(id, {
+      onSuccess: (data) => {
+        console.log('Course deleted:', data);
+
+        // Invalidate and refetch
+        queryClient.invalidateQueries({ queryKey: ['course-delete', id] });
+
+        // Handle success (e.g., show a success message, reset form)
+        navigate('/courses');
+      },
+      onError: (error) => {
+        console.error('Error deleting course:', error);
+        // Handle error (e.g., show error message)
+      },
+    });
+  };
 
   return (
     <div className="course-card" key={id}>
@@ -55,7 +82,9 @@ const CourseCard = ({
         >
           Edit
         </LinkButton>
-        <LinkButton variant="secondary">Delete</LinkButton>
+        <LinkButton variant="secondary" onClick={() => handleDelete()}>
+          Delete
+        </LinkButton>
       </div>
     </div>
   );

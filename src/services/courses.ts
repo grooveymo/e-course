@@ -79,3 +79,23 @@ export const updateCourse = async (courseData: Course): Promise<Course> => {
     throw error;
   }
 };
+
+export const deleteCourse = async (id: string): Promise<Course> => {
+  if (!id) {
+    throw new Error('Course ID is required');
+  }
+  const response = await fetch(`http://localhost:3000/courses/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/json',
+    },
+  });
+
+  // if (![200, 204].includes(response.status)) {
+  if (response.status !== 200) {
+    throw new Error(response.statusText);
+  }
+
+  const data = await response.json();
+  return data;
+};
