@@ -84,7 +84,7 @@ const CreateCourse = () => {
         />
         <Input
           label="Total number of Modules"
-          name="totalModulesCompleted"
+          name="totalModules"
           type="number"
           placeholder="Enter total number of modules"
           value={state.totalModules}
