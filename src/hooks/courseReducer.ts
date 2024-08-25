@@ -1,9 +1,4 @@
-// Define the state shape
-interface CourseState {
-  name: string;
-  totalModules: number;
-  duration: number; // in hours
-}
+import { Course } from '../types/course';
 
 // Define the possible actions
 type CourseAction =
@@ -13,17 +8,14 @@ type CourseAction =
   | { type: 'RESET' };
 
 // Initial state
-export const initialCreateState: CourseState = {
+export const initialCreateState: Course = {
   name: '',
   totalModules: 0,
   duration: 0,
 };
 
 // Reducer function
-export const addCourseReducer = (
-  state: CourseState,
-  action: CourseAction
-): CourseState => {
+export const courseReducer = (state: Course, action: CourseAction): Course => {
   switch (action.type) {
     case 'SET_NAME':
       return { ...state, name: action.payload };
