@@ -2,18 +2,16 @@ import { Input } from '../components/Input';
 import Form from '../components/Form';
 import Button from '../components/Button';
 import { useReducer } from 'react';
-import { addCourseReducer, initialCreateState } from '../hooks/addCreateCourse';
+import { courseReducer, initialCreateState } from '../hooks/courseReducer';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createCourse } from '../services/courses';
-import { Course } from '../types/course';
 import { useNavigate } from 'react-router-dom';
 
 const CreateCourse = () => {
-
   //----------------------------------------------------
   // Employ the useReducer hook to manage the form state
   //----------------------------------------------------
-  const [state, dispatch] = useReducer(addCourseReducer, initialCreateState);
+  const [state, dispatch] = useReducer(courseReducer, initialCreateState);
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: 'SET_NAME', payload: event.target.value });
@@ -35,7 +33,7 @@ const CreateCourse = () => {
   //------------------------------------------------------
 
   const queryClient = useQueryClient();
-  
+
   // React Query mutation hook
   const createCourseMutation = useMutation({
     mutationFn: createCourse,
