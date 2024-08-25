@@ -4,6 +4,9 @@ import { Input } from './Input';
 import Form from './Form';
 import { courseReducer } from '../hooks/courseReducer';
 import { Course } from '../types/course';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+import { updateCourse } from '../services/courses';
 
 export interface EditCourseFormProps {
   data: Course;
@@ -11,6 +14,7 @@ export interface EditCourseFormProps {
 
 const EditCourseForm = ({ data }: EditCourseFormProps) => {
   const initialEditState = {
+    id: data.id,
     name: data.name || '',
     duration: data.duration || 0,
     totalModules: data.totalModules || 0,
@@ -19,6 +23,7 @@ const EditCourseForm = ({ data }: EditCourseFormProps) => {
 
   const [state, dispatch] = useReducer(courseReducer, initialEditState);
 
+  console.log('>>> edit state:', state);
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: 'SET_NAME', payload: event.target.value });
   };
@@ -43,8 +48,34 @@ const EditCourseForm = ({ data }: EditCourseFormProps) => {
     });
   };
 
+  const queryClient = useQueryClient();
+
+  // React Query mutation hook
+  const editCourseMutation = useMutation({
+    mutationFn: updateCourse,
+  });
+
+  const navigate = useNavigate();
+  const handleSubmit = () => {
+    console.log('>>> Submitting course:', state);
+    editCourseMutation.mutate(state, {
+      onSuccess: (data) => {
+        console.log('Course update:', data);
+
+        // Invalidate and refetch
+        queryClient.invalidateQueries({ queryKey: ['course', state.id] });
+
+        // Handle success (e.g., show a success message, reset form)
+        navigate('/courses');
+      },
+      onError: (error) => {
+        console.error('Error updating course:', error);
+        // Handle error (e.g., show error message)
+      },
+    });
+  };
   return (
-    <Form onSubmit={() => null}>
+    <Form onSubmit={() => handleSubmit()}>
       <Input
         label="Course Name"
         name="name"

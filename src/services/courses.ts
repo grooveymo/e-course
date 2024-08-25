@@ -48,3 +48,34 @@ export const fetchCourse = async (id: string): Promise<Course> => {
   const data = await response.json();
   return data;
 };
+
+export const updateCourse = async (courseData: Course): Promise<Course> => {
+  if (!courseData?.id) {
+    throw new Error('Course ID is required');
+  }
+
+  console.log('>>> SERVICE: Updating course:', courseData);
+  try {
+    const response = await fetch(
+      `http://localhost:3000/courses/${courseData.id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(courseData),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const updatedCourse: Course = await response.json();
+    return updatedCourse;
+  } catch (error) {
+    console.error('Error updating course:', error);
+    throw error;
+  }
+};

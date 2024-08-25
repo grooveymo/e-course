@@ -13,6 +13,7 @@ export const initialCreateState: Course = {
   name: '',
   totalModules: 0,
   duration: 0,
+  totalModulesCompleted: 0,
 };
 
 // Reducer function
@@ -27,7 +28,7 @@ export const courseReducer = (state: Course, action: CourseAction): Course => {
     case 'RESET':
       return initialCreateState;
     case 'SET_TOTAL_MODULES_COMPLETED':
-      return { ...state, totalModules: action.payload };
+      return { ...state, totalModulesCompleted: action.payload };
     default:
       return state;
   }
