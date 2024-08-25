@@ -82,7 +82,7 @@ const CreateCourse = () => {
           label="Total number of Modules"
           name="totalModulesCompleted"
           type="number"
-          placeholder="Enter your username"
+          placeholder="Enter total number of modules"
           value={state.totalModules}
           onChange={handleModulesChange}
         />
