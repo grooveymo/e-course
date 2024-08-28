@@ -10,7 +10,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import CreateCourse from './pages/CreateCourse';
 import EditCourse from './pages/EditCourse';
 import { AuthProvider } from './components/AuthContextProvider';
-import Login from './pages/Login';
 
 const App: React.FC = () => {
   // Create a client
@@ -22,8 +21,6 @@ const App: React.FC = () => {
         <AuthProvider>
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route path="login" element={<Login />} />
-
               <Route index element={<Home />} />
               <Route path="about" element={<About />} />
               <Route path="contact" element={<Contact />} />
