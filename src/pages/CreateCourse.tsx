@@ -13,29 +13,10 @@ const CreateCourse = () => {
   //----------------------------------------------------
   const [state, dispatch] = useReducer(courseReducer, initialCreateState);
 
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: 'SET_NAME', payload: event.target.value });
-  };
-
-  const handleModulesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: 'SET_TOTAL_MODULES',
-      payload: parseInt(event.target.value, 10),
-    });
-  };
-
-  const handleDurationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: 'SET_DURATION', payload: parseFloat(event.target.value) });
-  };
-
-  const handleReset = () => {
-    dispatch({ type: 'RESET' });
-  };
-
   //------------------------------------------------------
-  // Employ React Query's mutation hook to create a course
+  // Employ React Query's mutation hook
+  // to call an API endpoint to create a course
   //------------------------------------------------------
-
   const queryClient = useQueryClient();
 
   // React Query mutation hook
@@ -45,34 +26,49 @@ const CreateCourse = () => {
 
   const navigate = useNavigate();
   const handleSubmit = () => {
-    createCourseMutation.mutate(state, {
-      onSuccess: (data) => {
-        console.log('Course created:', data);
+    const { name, duration, totalModules } = state;
 
-        // Invalidate and refetch
-        queryClient.invalidateQueries({ queryKey: ['courses'] });
+    createCourseMutation.mutate(
+      {
+        name,
+        duration,
+        totalModules,
+      },
+      {
+        onSuccess: (data) => {
+          console.log('Course created:', data);
 
-        // Handle success (e.g., show a success message, reset form)
-        navigate('/courses');
-      },
-      onError: (error) => {
-        console.error('Error creating course:', error);
-        // Handle error (e.g., show error message)
-      },
-    });
+          // Invalidate and refetch
+          queryClient.invalidateQueries({ queryKey: ['courses'] });
+
+          // Handle success - redirect to the course list page
+          navigate('/courses');
+        },
+        onError: (error) => {
+          console.error('Error creating course:', error);
+          // Handle error (e.g., show error message)
+        },
+      }
+    );
   };
 
   return (
     <>
       <h1>Add a course</h1>
-      <Form onSubmit={() => handleSubmit()} onReset={handleReset}>
+      <Form
+        onSubmit={() => handleSubmit()}
+        onReset={() => dispatch({ type: 'RESET' })}
+      >
         <Input
           label="Course Name"
           name="name"
           type="text"
           placeholder="Enter course name"
           value={state.name}
-          onChange={handleNameChange}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            dispatch({ type: 'SET_NAME', payload: event.target.value });
+          }}
+          error={state.errors?.name}
         />
         <Input
           label="Course Duration"
@@ -80,7 +76,13 @@ const CreateCourse = () => {
           type="number"
           placeholder="Enter course duration"
           value={state.duration}
-          onChange={handleDurationChange}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            dispatch({
+              type: 'SET_DURATION',
+              payload: parseFloat(event.target.value),
+            });
+          }}
+          error={state.errors?.duration}
         />
         <Input
           label="Total number of Modules"
@@ -88,14 +90,26 @@ const CreateCourse = () => {
           type="number"
           placeholder="Enter total number of modules"
           value={state.totalModules}
-          onChange={handleModulesChange}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            dispatch({
+              type: 'SET_TOTAL_MODULES',
+              payload: parseInt(event.target.value, 10),
+            });
+          }}
+          error={state.errors?.totalModules}
         />
-        <Button type="submit" variant={'primary'}>
-          Submit
-        </Button>
-        <Button type="reset" variant={'secondary'}>
-          Reset
-        </Button>
+        <div className="button-container">
+          <Button
+            type="submit"
+            variant={'primary'}
+            disabled={!state?.isFormValid}
+          >
+            Submit
+          </Button>
+          <Button type="reset" variant={'secondary'}>
+            Reset
+          </Button>
+        </div>
       </Form>
     </>
   );

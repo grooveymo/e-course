@@ -4,6 +4,17 @@
   padding: 4px 16px;
   font-size: 16px;
 }
+.base:disabled {
+  border-color: #ccc;
+  background-color: #ccc;
+  color: #000;
+}
+.base:disabled:hover {
+  border-color: #ccc;
+  background-color: #ddd;
+  color: #000;
+}
+
 .primary {
   border-color: #007bff;
   background-color: #007bff;
