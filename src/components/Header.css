@@ -13,3 +13,10 @@ nav ul li {
   display: inline;
   margin-right: 1rem;
 }
+
+.user {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #00ff00;
+}

@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from './AuthContextProvider';
+import { PersonIcon } from '@radix-ui/react-icons';
 
 import './Header.css';
+
 const Header: React.FC = () => {
+  const { user } = useAuth();
   return (
     <header>
       <nav>
@@ -18,6 +22,9 @@ const Header: React.FC = () => {
           </li>
           <li>
             <Link to="/contact">Contact</Link>
+          </li>
+          <li className="user">
+            <PersonIcon color="#00ff00" />@{user?.name}
           </li>
         </ul>
       </nav>
