@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteCourse } from '../services/courses';
 
 export interface CourseCardProps {
-  id: string;
+  id?: string;
   name: string;
   duration: number;
   totalModules: number;
