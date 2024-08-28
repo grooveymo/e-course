@@ -1,58 +1,57 @@
-import React, { useState, FormEvent } from 'react';
-import { useAuth } from '../components/AuthContextProvider';
-
+import { useState, FormEvent } from 'react';
+import { Input } from '../components/Input';
+import './Login.css';
+import Button from '../components/Button';
+import ErrorMessage from '../components/ErrorMessage';
 export interface LoginPageProps {
   login: (email: string, password: string) => Promise<void>;
 }
 
 const LoginPage = ({ login }: LoginPageProps) => {
-  console.log('on login page');
-  const [email, setEmail] = useState<string>('');
+  const [name, setName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
-  //   const { login, isAuthenticated, user } = useAuth();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
 
     try {
-      await login(email, password);
-    } catch (err: unknown) {
-      setError('Login failed. Please check your credentials.');
+      await login(name, password);
+    } catch (err) {
+      if (err instanceof Error) {
+        console.log('Error:', err.message);
+        setError(err.message);
+      } else {
+        setError('An unexpected error occurred');
+      }
     }
   };
-
-  //   if (isAuthenticated && user) {
-  //     return <div>Welcome, {user.name}! You are logged in.</div>;
-  //   }
 
   return (
     <div className="login-page">
       <h2>Login</h2>
-      {error && <p className="error">{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            // type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Log In</button>
+      {/* {error && <p className="error">{error}</p>} */}
+      {error && <ErrorMessage message={error} />}
+      <form onSubmit={handleSubmit} className="login-form">
+        <Input
+          name="name"
+          label="Username:"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <Input
+          name="password"
+          label="Password:"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+
+        <Button type="submit" variant={'primary'}>
+          Log In
+        </Button>
       </form>
     </div>
   );
