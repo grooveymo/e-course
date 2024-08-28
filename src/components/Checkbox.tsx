@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './Checkbox.css';
 export interface CheckboxProps {
   label: string;
   isChecked: boolean;
@@ -10,7 +10,6 @@ const Checkbox = ({
   isChecked = false,
   setIsChecked,
 }: CheckboxProps) => {
-
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };

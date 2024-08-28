@@ -1,23 +1,26 @@
 .checkbox-container {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
   }
-  
-  .checkbox-input {
-    height: 16px;
-    width: 16px;
-    color: #2563eb;
-    border: 1px solid #d1d5db;
-    border-radius: 4px;
-  }
-  
-  .checkbox-input:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.5);
-  }
-  
-  .checkbox-label {
-    margin-left: 8px;
-    font-size: 14px;
-    color: #374151;
-  }
+}
+
+.checkbox-input {
+  height: 16px;
+  width: 16px;
+  color: #2563eb;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+}
+
+.checkbox-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.5);
+}
+
+.checkbox-label {
+  margin-left: 8px;
+  font-size: 14px;
+  color: #dedede;
+}

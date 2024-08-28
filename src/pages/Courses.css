@@ -4,6 +4,9 @@
   grid-gap: 16px;
   justify-content: center;
   margin: 1rem;
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 .create-course {
