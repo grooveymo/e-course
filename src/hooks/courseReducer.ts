@@ -8,7 +8,7 @@ type CourseAction =
   | { type: 'RESET' };
 
 // Initial state
-export const initialCreateState: Course = {
+export const initialFormState: Course = {
   name: '',
   totalModules: 0,
   duration: 0,
@@ -24,7 +24,7 @@ export const courseReducer = (state: Course, action: CourseAction): Course => {
     case 'SET_DURATION':
       return { ...state, duration: action.payload };
     case 'RESET':
-      return initialCreateState;
+      return initialFormState;
     default:
       return state;
   }
