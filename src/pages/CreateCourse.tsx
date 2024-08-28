@@ -12,26 +12,10 @@ const CreateCourse = () => {
   // Employ the useReducer hook to manage the form state
   //----------------------------------------------------
   const [state, dispatch] = useReducer(courseReducer, initialCreateState);
-  console.log('ERR => state', state);
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: 'SET_NAME', payload: event.target.value });
-  };
-
-  const handleModulesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: 'SET_TOTAL_MODULES',
-      payload: parseInt(event.target.value, 10),
-    });
-  };
-
-  const handleDurationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: 'SET_DURATION', payload: parseFloat(event.target.value) });
-  };
 
   //------------------------------------------------------
   // Employ React Query's mutation hook to create a course
   //------------------------------------------------------
-
   const queryClient = useQueryClient();
 
   // React Query mutation hook
@@ -77,7 +61,9 @@ const CreateCourse = () => {
           type="text"
           placeholder="Enter course name"
           value={state.name}
-          onChange={handleNameChange}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            dispatch({ type: 'SET_NAME', payload: event.target.value });
+          }}
           error={state.errors?.name}
         />
         <Input
@@ -86,7 +72,12 @@ const CreateCourse = () => {
           type="number"
           placeholder="Enter course duration"
           value={state.duration}
-          onChange={handleDurationChange}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            dispatch({
+              type: 'SET_DURATION',
+              payload: parseFloat(event.target.value),
+            });
+          }}
           error={state.errors?.duration}
         />
         <Input
@@ -95,7 +86,12 @@ const CreateCourse = () => {
           type="number"
           placeholder="Enter total number of modules"
           value={state.totalModules}
-          onChange={handleModulesChange}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            dispatch({
+              type: 'SET_TOTAL_MODULES',
+              payload: parseInt(event.target.value, 10),
+            });
+          }}
           error={state.errors?.totalModules}
         />
         <Button
