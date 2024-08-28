@@ -36,7 +36,7 @@ const Courses: React.FC = () => {
       {isSuccess && (
         <>
           <div className="create-course">
-            <div>
+            <div className="add-icon-container">
               <PlusCircledIcon className="add-icon" />
               <LinkButton variant={'primary'} onClick={handleNavigation}>
                 Add course
