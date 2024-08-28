@@ -7,6 +7,9 @@
   margin-bottom: 16px;
   gap: 32px;
 }
+.search {
+  width: 400px;
+}
 
 .filters {
   margin-top: 16px;
