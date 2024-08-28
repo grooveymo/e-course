@@ -13,6 +13,9 @@ export interface EditCourseFormProps {
 }
 
 const EditCourseForm = ({ data }: EditCourseFormProps) => {
+  //----------------------------------------------------
+  // Employ the useReducer hook to manage the form state
+  //----------------------------------------------------
   const initialEditState = {
     id: data.id,
     name: data.name || '',
@@ -23,31 +26,10 @@ const EditCourseForm = ({ data }: EditCourseFormProps) => {
 
   const [state, dispatch] = useReducer(courseReducer, initialEditState);
 
-  console.log('>>> edit state:', state);
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: 'SET_NAME', payload: event.target.value });
-  };
-
-  const handleModulesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: 'SET_TOTAL_MODULES',
-      payload: parseInt(event.target.value, 10),
-    });
-  };
-
-  const handleDurationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: 'SET_DURATION', payload: parseFloat(event.target.value) });
-  };
-
-  const handleNumModulesCompletedChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    dispatch({
-      type: 'SET_TOTAL_MODULES_COMPLETED',
-      payload: parseInt(event.target.value, 10),
-    });
-  };
-
+  //------------------------------------------------------
+  // Employ React Query's mutation hook
+  // to call an API endpoint to create a course
+  //------------------------------------------------------
   const queryClient = useQueryClient();
 
   // React Query mutation hook
@@ -57,23 +39,33 @@ const EditCourseForm = ({ data }: EditCourseFormProps) => {
 
   const navigate = useNavigate();
   const handleSubmit = () => {
-    console.log('>>> Submitting course:', state);
-    editCourseMutation.mutate(state, {
-      onSuccess: (data) => {
-        console.log('Course update:', data);
-
-        // Invalidate and refetch
-        queryClient.invalidateQueries({ queryKey: ['course', state.id] });
-
-        // Handle success (e.g., show a success message, reset form)
-        navigate('/courses');
+    const { name, duration, totalModules, totalModulesCompleted } = state;
+    editCourseMutation.mutate(
+      {
+        id: data.id,
+        name,
+        duration,
+        totalModules,
+        totalModulesCompleted,
       },
-      onError: (error) => {
-        console.error('Error updating course:', error);
-        // Handle error (e.g., show error message)
-      },
-    });
+      {
+        onSuccess: (data) => {
+          console.log('Course update:', data);
+
+          // Invalidate and refetch
+          queryClient.invalidateQueries({ queryKey: ['course', state.id] });
+
+          // Handle success (e.g., show a success message, reset form)
+          navigate('/courses');
+        },
+        onError: (error) => {
+          console.error('Error updating course:', error);
+          // Handle error (e.g., show error message)
+        },
+      }
+    );
   };
+
   return (
     <Form onSubmit={() => handleSubmit()}>
       <Input
@@ -82,7 +74,10 @@ const EditCourseForm = ({ data }: EditCourseFormProps) => {
         type="text"
         placeholder="Enter course name"
         value={state.name}
-        onChange={handleNameChange}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          dispatch({ type: 'SET_NAME', payload: event.target.value });
+        }}
+        error={state.errors?.name}
       />
       <Input
         label="Course Duration"
@@ -90,7 +85,13 @@ const EditCourseForm = ({ data }: EditCourseFormProps) => {
         type="number"
         placeholder="Enter course duration"
         value={state.duration}
-        onChange={handleDurationChange}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          dispatch({
+            type: 'SET_DURATION',
+            payload: parseFloat(event.target.value),
+          });
+        }}
+        error={state.errors?.duration}
       />
       <Input
         label="Total number of Modules"
@@ -98,7 +99,13 @@ const EditCourseForm = ({ data }: EditCourseFormProps) => {
         type="number"
         placeholder="Enter the total number of modules"
         value={state.totalModules}
-        onChange={handleModulesChange}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          dispatch({
+            type: 'SET_TOTAL_MODULES',
+            payload: parseInt(event.target.value, 10),
+          });
+        }}
+        error={state.errors?.totalModules}
       />
       <Input
         label="Number of Modules Completed"
@@ -106,9 +113,15 @@ const EditCourseForm = ({ data }: EditCourseFormProps) => {
         type="number"
         placeholder="Enter number of modules completed"
         value={state.totalModulesCompleted}
-        onChange={handleNumModulesCompletedChange}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          dispatch({
+            type: 'SET_TOTAL_MODULES_COMPLETED',
+            payload: parseInt(event.target.value, 10),
+          });
+        }}
+        error={state.errors?.totalModulesCompleted}
       />
-      <Button type="submit" variant={'primary'}>
+      <Button type="submit" variant={'primary'} disabled={!state?.isFormValid}>
         Submit
       </Button>
     </Form>
