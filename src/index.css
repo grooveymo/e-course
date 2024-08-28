@@ -80,3 +80,27 @@ button:focus-visible {
   padding: 20px; /* Add some padding for better readability */
   box-sizing: border-box; /* Ensures padding is included in the width */
 }
+
+button,
+input[type='submit'],
+input[type='button'],
+input[type='radio'],
+input[type='checkbox'],
+select {
+  cursor: pointer;
+}
+
+/* Keep default cursor for text inputs */
+input[type='text'],
+input[type='password'],
+input[type='email'],
+input[type='number'],
+textarea {
+  cursor: text;
+}
+
+/* Use default cursor for disabled elements */
+input:disabled,
+button:disabled {
+  cursor: default;
+}
