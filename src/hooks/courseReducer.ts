@@ -63,7 +63,7 @@ export const courseReducer = (
         ...state,
         name: action.payload,
         errors: { ...state?.errors, name: isCourseNameValid(action.payload) },
-        isFormValid: isFormValid({ ...state, name: action.payload }),
+        isFormValid: isFormValid(state),
       };
     case 'SET_TOTAL_MODULES':
       return {
@@ -73,14 +73,14 @@ export const courseReducer = (
           ...state?.errors,
           totalModules: isTotalModulesValid(action.payload),
         },
-        isFormValid: isFormValid({ ...state, totalModules: action.payload }),
+        isFormValid: isFormValid(state),
       };
     case 'SET_DURATION':
       return {
         ...state,
         duration: action.payload,
         errors: { ...state?.errors, duration: isDurationValid(action.payload) },
-        isFormValid: isFormValid({ ...state, duration: action.payload }),
+        isFormValid: isFormValid(state),
       };
     case 'RESET':
       return initialCreateState;
