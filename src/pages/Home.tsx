@@ -15,10 +15,10 @@ type KPIData = {
 };
 
 const titles: Record<keyof KPIData, string> = {
-  totalCourses: 'Total Courses',
-  totalCompleted: 'Total Completed',
-  totalInProgress: 'Total In Progress',
-  totalNotStarted: 'Total Not Started',
+  totalCourses: 'Total',
+  totalCompleted: 'Completed',
+  totalInProgress: 'In Progress',
+  totalNotStarted: 'Not Started',
 };
 
 const generateKPI = (data: Course[]): { title: string; value: number }[] => {
