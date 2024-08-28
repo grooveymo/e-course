@@ -41,20 +41,24 @@ const CreateCourse = () => {
           // Invalidate and refetch
           queryClient.invalidateQueries({ queryKey: ['courses'] });
 
-        // Handle success - redirect to the course list page
-        navigate('/courses');
-      },
-      onError: (error) => {
-        console.error('Error creating course:', error);
-        // Handle error (e.g., show error message)
-      },
-    });
+          // Handle success - redirect to the course list page
+          navigate('/courses');
+        },
+        onError: (error) => {
+          console.error('Error creating course:', error);
+          // Handle error (e.g., show error message)
+        },
+      }
+    );
   };
 
   return (
     <>
       <h1>Add a course</h1>
-      <Form onSubmit={() => handleSubmit()}>
+      <Form
+        onSubmit={() => handleSubmit()}
+        onReset={() => dispatch({ type: 'RESET' })}
+      >
         <Input
           label="Course Name"
           name="name"
@@ -94,13 +98,18 @@ const CreateCourse = () => {
           }}
           error={state.errors?.totalModules}
         />
-        <Button
-          type="submit"
-          variant={'primary'}
-          disabled={!state?.isFormValid}
-        >
-          Submit
-        </Button>
+        <div className="button-container">
+          <Button
+            type="submit"
+            variant={'primary'}
+            disabled={!state?.isFormValid}
+          >
+            Submit
+          </Button>
+          <Button type="reset" variant={'secondary'}>
+            Reset
+          </Button>
+        </div>
       </Form>
     </>
   );
