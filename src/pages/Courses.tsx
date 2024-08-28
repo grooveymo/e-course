@@ -75,7 +75,7 @@ const Courses: React.FC = () => {
         <>
           <SearchFilter state={state} dispatch={dispatch} />
           <div className="create-course">
-            <div>
+            <div className="add-icon-container">
               <PlusCircledIcon className="add-icon" />
               <LinkButton variant={'primary'} onClick={handleNavigation}>
                 Add course
