@@ -31,9 +31,14 @@ const LoginPage = ({ login }: LoginPageProps) => {
   return (
     <div className="login-page">
       <h2>Login</h2>
-      {/* {error && <p className="error">{error}</p>} */}
+
       {error && <ErrorMessage message={error} />}
+
       <form onSubmit={handleSubmit} className="login-form">
+        <p className="login-intro">
+          Please enter the same value for both username and password.
+        </p>
+
         <Input
           name="name"
           label="Username:"
