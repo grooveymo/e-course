@@ -36,7 +36,7 @@ const CourseCard = ({
         console.log('Course deleted:', data);
 
         // Invalidate and refetch
-        queryClient.invalidateQueries({ queryKey: ['course-delete', id] });
+        queryClient.invalidateQueries({ queryKey: ['courses'] });
 
         // Handle success (e.g., show a success message, reset form)
         navigate('/courses');
