@@ -47,11 +47,18 @@ const isTotalModulesValid = (totalModules: number) => {
   }
   return undefined;
 };
+const isTotalModulesCompletedValid = (totalModulesCompleted: number) => {
+  if (totalModulesCompleted < 0) {
+    return 'Total number of modules completed must be greater or equal to 0';
+  }
+  return undefined;
+};
 const isFormValid = (state: CourseState) => {
   return (
     !isCourseNameValid(state.name) &&
     !isDurationValid(state.duration) &&
-    !isTotalModulesValid(state.totalModules)
+    !isTotalModulesValid(state.totalModules) &&
+    !isTotalModulesCompletedValid(state?.totalModulesCompleted || 0)
   );
 };
 // Reducer function
@@ -65,7 +72,7 @@ export const courseReducer = (
         ...state,
         name: action.payload,
         errors: { ...state?.errors, name: isCourseNameValid(action.payload) },
-        isFormValid: isFormValid(state),
+        isFormValid: isFormValid({ ...state, name: action.payload }),
       };
     case 'SET_TOTAL_MODULES':
       return {
@@ -75,19 +82,31 @@ export const courseReducer = (
           ...state?.errors,
           totalModules: isTotalModulesValid(action.payload),
         },
-        isFormValid: isFormValid(state),
+        isFormValid: isFormValid({ ...state, totalModules: action.payload }),
       };
     case 'SET_DURATION':
       return {
         ...state,
         duration: action.payload,
         errors: { ...state?.errors, duration: isDurationValid(action.payload) },
-        isFormValid: isFormValid(state),
+        isFormValid: isFormValid({ ...state, duration: action.payload }),
+      };
+    case 'SET_TOTAL_MODULES_COMPLETED':
+      return {
+        ...state,
+        totalModulesCompleted: action.payload,
+        errors: {
+          ...state?.errors,
+          totalModulesCompleted: isTotalModulesCompletedValid(action.payload),
+        },
+        isFormValid: isFormValid({
+          ...state,
+          totalModulesCompleted: action.payload,
+        }),
       };
     case 'RESET':
       return initialCreateState;
-    case 'SET_TOTAL_MODULES_COMPLETED':
-      return { ...state, totalModulesCompleted: action.payload };
+
     default:
       return state;
   }
