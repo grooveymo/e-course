@@ -39,7 +39,7 @@ const SearchFilter = ({ state, dispatch }: SearchFilterProps) => {
           setIsChecked={() => dispatch({ type: 'TOGGLE_PARTIALLY_COMPLETED' })}
         />
         <Checkbox
-          label="Unstarted"
+          label="Enrolled"
           isChecked={state.unstarted}
           setIsChecked={() => dispatch({ type: 'TOGGLE_UNSTARTED' })}
         />
