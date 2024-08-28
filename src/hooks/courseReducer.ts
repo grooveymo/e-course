@@ -21,7 +21,7 @@ type CourseAction =
   | { type: 'SET_TOTAL_MODULES_COMPLETED'; payload: number };
 
 // Initial state
-export const initialCreateState: CourseState = {
+export const initialFormState: CourseState = {
   name: '',
   totalModules: 0,
   duration: 0,
@@ -105,7 +105,7 @@ export const courseReducer = (
         }),
       };
     case 'RESET':
-      return initialCreateState;
+      return initialFormState;
 
     default:
       return state;
