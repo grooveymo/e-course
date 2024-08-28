@@ -13,25 +13,10 @@ const CreateCourse = () => {
   //----------------------------------------------------
   const [state, dispatch] = useReducer(courseReducer, initialCreateState);
 
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: 'SET_NAME', payload: event.target.value });
-  };
-
-  const handleModulesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: 'SET_TOTAL_MODULES',
-      payload: parseInt(event.target.value, 10),
-    });
-  };
-
-  const handleDurationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: 'SET_DURATION', payload: parseFloat(event.target.value) });
-  };
-
   //------------------------------------------------------
-  // Employ React Query's mutation hook to create a course
+  // Employ React Query's mutation hook
+  // to call an API endpoint to create a course
   //------------------------------------------------------
-
   const queryClient = useQueryClient();
 
   // React Query mutation hook
@@ -48,7 +33,7 @@ const CreateCourse = () => {
         // Invalidate and refetch
         queryClient.invalidateQueries({ queryKey: ['courses'] });
 
-        // Handle success (e.g., show a success message, reset form)
+        // Handle success - redirect to the course list page
         navigate('/courses');
       },
       onError: (error) => {
@@ -57,7 +42,7 @@ const CreateCourse = () => {
       },
     });
   };
-  //----------------------------------------------
+
   return (
     <>
       <h1>Add a course</h1>
@@ -68,7 +53,9 @@ const CreateCourse = () => {
           type="text"
           placeholder="Enter course name"
           value={state.name}
-          onChange={handleNameChange}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            dispatch({ type: 'SET_NAME', payload: event.target.value });
+          }}
         />
         <Input
           label="Course Duration"
@@ -76,7 +63,12 @@ const CreateCourse = () => {
           type="number"
           placeholder="Enter course duration"
           value={state.duration}
-          onChange={handleDurationChange}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            dispatch({
+              type: 'SET_DURATION',
+              payload: parseFloat(event.target.value),
+            });
+          }}
         />
         <Input
           label="Total number of Modules"
@@ -84,7 +76,12 @@ const CreateCourse = () => {
           type="number"
           placeholder="Enter total number of modules"
           value={state.totalModules}
-          onChange={handleModulesChange}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            dispatch({
+              type: 'SET_TOTAL_MODULES',
+              payload: parseInt(event.target.value, 10),
+            });
+          }}
         />
         <Button type="submit" variant={'primary'}>
           Submit
