@@ -15,6 +15,13 @@
   margin: 16px;
 }
 
+.add-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
 .add-icon {
   color: #007bff;
 }
