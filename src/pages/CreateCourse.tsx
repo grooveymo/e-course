@@ -14,7 +14,8 @@ const CreateCourse = () => {
   const [state, dispatch] = useReducer(courseReducer, initialCreateState);
 
   //------------------------------------------------------
-  // Employ React Query's mutation hook to create a course
+  // Employ React Query's mutation hook
+  // to call an API endpoint to create a course
   //------------------------------------------------------
   const queryClient = useQueryClient();
 
@@ -40,17 +41,16 @@ const CreateCourse = () => {
           // Invalidate and refetch
           queryClient.invalidateQueries({ queryKey: ['courses'] });
 
-          // Handle success (e.g., show a success message, reset form)
-          navigate('/courses');
-        },
-        onError: (error) => {
-          console.error('Error creating course:', error);
-          // Handle error (e.g., show error message)
-        },
-      }
-    );
+        // Handle success - redirect to the course list page
+        navigate('/courses');
+      },
+      onError: (error) => {
+        console.error('Error creating course:', error);
+        // Handle error (e.g., show error message)
+      },
+    });
   };
-  //----------------------------------------------
+
   return (
     <>
       <h1>Add a course</h1>
