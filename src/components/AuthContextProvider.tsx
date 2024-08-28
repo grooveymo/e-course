@@ -5,14 +5,12 @@ import LoginPage from '../pages/Login';
 interface User {
   id: string;
   name: string;
-  email: string;
-  // Add other user properties as needed
 }
 
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (name: string, password: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -29,12 +27,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-  //   const login = async (email: string, password: string): Promise<void> => {
   const login = async (name: string, password: string): Promise<void> => {
     if (name !== password) {
       throw new Error('Login failed');
     } else {
-      setUser({ id: '1', name, email: 'test@test.com' });
+      setUser({ id: '1', name });
       setIsAuthenticated(true);
     }
   };
