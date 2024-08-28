@@ -18,8 +18,13 @@ const LoginPage = ({ login }: LoginPageProps) => {
 
     try {
       await login(name, password);
-    } catch (err: unknown) {
-      setError(`Error: ${err}`);
+    } catch (err) {
+      if (err instanceof Error) {
+        console.log('Error:', err.message);
+        setError(err.message);
+      } else {
+        setError('An unexpected error occurred');
+      }
     }
   };
 

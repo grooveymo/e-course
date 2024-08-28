@@ -28,12 +28,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   const login = async (name: string, password: string): Promise<void> => {
-    if (name !== password) {
-      throw new Error('Login failed');
-    } else {
-      setUser({ id: '1', name });
-      setIsAuthenticated(true);
-    }
+    return new Promise<void>((resolve, reject) => {
+      try {
+        if (name !== password) {
+          throw new Error('Login failed: Username and password must match');
+        }
+
+        // Simulate an API call or some asynchronous operation
+        setTimeout(() => {
+          setUser({ id: '1', name });
+          setIsAuthenticated(true);
+          resolve();
+        }, 500); // 500ms delay to simulate network request
+      } catch (error) {
+        reject(error);
+      }
+    });
   };
 
   const logout = (): void => {
