@@ -10,6 +10,7 @@ import CourseCard, { CourseCardProps } from '../components/CourseCard';
 import LinkButton from '../components/LinkButton';
 
 import './Courses.css';
+import SearchFilter from '../components/SearchFilter';
 
 const Courses: React.FC = () => {
   const { data, isLoading, isError, error, isSuccess } = useQuery({
@@ -35,6 +36,7 @@ const Courses: React.FC = () => {
 
       {isSuccess && (
         <>
+          <SearchFilter />
           <div className="create-course">
             <div>
               <PlusCircledIcon className="add-icon" />

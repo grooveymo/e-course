@@ -1,0 +1,17 @@
+.search-filters-container {
+  display: flex;
+  border: 1px solid #d1d5db;
+  border-radius: 16px;
+  padding: 32px;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 32px;
+}
+
+.filters {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
