@@ -12,7 +12,7 @@ const CreateCourse = () => {
   // Employ the useReducer hook to manage the form state
   //----------------------------------------------------
   const [state, dispatch] = useReducer(courseReducer, initialCreateState);
-
+  console.log('ERR => state', state);
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: 'SET_NAME', payload: event.target.value });
   };
@@ -41,21 +41,30 @@ const CreateCourse = () => {
 
   const navigate = useNavigate();
   const handleSubmit = () => {
-    createCourseMutation.mutate(state, {
-      onSuccess: (data) => {
-        console.log('Course created:', data);
+    const { name, duration, totalModules } = state;
 
-        // Invalidate and refetch
-        queryClient.invalidateQueries({ queryKey: ['courses'] });
+    createCourseMutation.mutate(
+      {
+        name,
+        duration,
+        totalModules,
+      },
+      {
+        onSuccess: (data) => {
+          console.log('Course created:', data);
 
-        // Handle success (e.g., show a success message, reset form)
-        navigate('/courses');
-      },
-      onError: (error) => {
-        console.error('Error creating course:', error);
-        // Handle error (e.g., show error message)
-      },
-    });
+          // Invalidate and refetch
+          queryClient.invalidateQueries({ queryKey: ['courses'] });
+
+          // Handle success (e.g., show a success message, reset form)
+          navigate('/courses');
+        },
+        onError: (error) => {
+          console.error('Error creating course:', error);
+          // Handle error (e.g., show error message)
+        },
+      }
+    );
   };
   //----------------------------------------------
   return (
@@ -69,6 +78,7 @@ const CreateCourse = () => {
           placeholder="Enter course name"
           value={state.name}
           onChange={handleNameChange}
+          error={state.errors?.name}
         />
         <Input
           label="Course Duration"
@@ -77,6 +87,7 @@ const CreateCourse = () => {
           placeholder="Enter course duration"
           value={state.duration}
           onChange={handleDurationChange}
+          error={state.errors?.duration}
         />
         <Input
           label="Total number of Modules"
@@ -85,8 +96,13 @@ const CreateCourse = () => {
           placeholder="Enter total number of modules"
           value={state.totalModules}
           onChange={handleModulesChange}
+          error={state.errors?.totalModules}
         />
-        <Button type="submit" variant={'primary'}>
+        <Button
+          type="submit"
+          variant={'primary'}
+          disabled={!state?.isFormValid}
+        >
           Submit
         </Button>
       </Form>
