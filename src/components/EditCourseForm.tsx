@@ -53,7 +53,7 @@ const EditCourseForm = ({ data }: EditCourseFormProps) => {
           console.log('Course update:', data);
 
           // Invalidate and refetch
-          queryClient.invalidateQueries({ queryKey: ['course', state.id] });
+          queryClient.invalidateQueries({ queryKey: ['course', data.id] });
 
           // Handle success (e.g., show a success message, reset form)
           navigate('/courses');
@@ -67,7 +67,10 @@ const EditCourseForm = ({ data }: EditCourseFormProps) => {
   };
 
   return (
-    <Form onSubmit={() => handleSubmit()}>
+    <Form
+      onSubmit={() => handleSubmit()}
+      onReset={() => dispatch({ type: 'RESET' })}
+    >
       <Input
         label="Course Name"
         name="name"
