@@ -1,5 +1,7 @@
 export const fetchCourses = async () => {
-  const response = await fetch('http://localhost:3000/coursesXXX', {
+  //TODO - inspect the network tab in the browser dev tools 
+  //     - if you change the URL to http://localhost:3000/coursesXXX you will see the error message in the console
+  const response = await fetch('http://localhost:3000/courses', {
     headers: {
       Accept: 'application/json',
     },
