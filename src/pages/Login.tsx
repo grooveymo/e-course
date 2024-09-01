@@ -3,6 +3,7 @@ import { Input } from '../components/Input';
 import './Login.css';
 import Button from '../components/Button';
 import ErrorMessage from '../components/ErrorMessage';
+import Form from '../components/Form';
 export interface LoginPageProps {
   login: (email: string, password: string) => Promise<void>;
 }
@@ -34,7 +35,7 @@ const LoginPage = ({ login }: LoginPageProps) => {
 
       {error && <ErrorMessage message={error} />}
 
-      <form onSubmit={handleSubmit} className="login-form">
+      <Form onSubmit={handleSubmit} onReset={() => null} className="login-form">
         <p className="login-intro">
           Please enter the same value for both username and password.
         </p>
@@ -57,7 +58,7 @@ const LoginPage = ({ login }: LoginPageProps) => {
         <Button type="submit" variant={'primary'}>
           Log In
         </Button>
-      </form>
+      </Form>
     </div>
   );
 };
