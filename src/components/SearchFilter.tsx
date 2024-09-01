@@ -9,11 +9,6 @@ export interface SearchFilterProps {
   dispatch: React.Dispatch<FormAction>;
 }
 const SearchFilter = ({ state, dispatch }: SearchFilterProps) => {
-  //   const [state, dispatch] = useReducer(
-  //     searchFilterFormReducer,
-  //     searchFilterInitialState
-  //   );
-
   console.log('search state:', state);
 
   return (
