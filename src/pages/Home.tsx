@@ -6,6 +6,7 @@ import './Home.css';
 import KPI from '../components/KPI';
 import ErrorMessage from '../components/ErrorMessage';
 import Loader from '../components/Loader';
+import SpeechRecognition from '../components/speech/Speech';
 
 type KPIData = {
   totalCourses: number;
@@ -55,6 +56,12 @@ const Home: React.FC = () => {
   return (
     <>
       <h1>Welcome to the Home Page</h1>
+
+      <SpeechRecognition />
+
+      <br />
+      <br />
+      <br />
       {isLoading && <Loader />}
       {isError && <ErrorMessage message={error?.message} />}
 
